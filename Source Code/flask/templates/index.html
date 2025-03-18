@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Prediction</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external stylesheet -->
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #f3f3f3, #e6e6fa);
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            height: 50px;
+            background-color: #613a97;
+            color: aliceblue;
+            text-align: center;
+            font-size: 25px;
+            padding-top: 15px;
+            font-weight: bold;
+        }
+
+        .heading {
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            color: #4B0082;
+            padding: 10px;
+            margin-top: 20px;
+            letter-spacing: 1px;
+        }
+
+        .description {
+            font-size: 16px;
+            font-weight: 400;
+            text-align: center;
+            color: #333;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .highlight {
+            font-weight: bold;
+            font-size: 12px;
+            color: #28a745;
+        }
+
+        .text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            /* Increased bottom margin for spacing */
+        }
+
+        .input-text {
+            border: 2px solid #9b59b6;
+            padding: 5px;
+            min-height: 100px;
+            overflow-y: auto;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            margin: 20px 0px 20px 0px;
+            transition: border-color 0.3s;
+            width: 500px;
+        }
+
+        .input-text:focus {
+            border-color: violet;
+            outline: none;
+        }
+
+        .btn-custom {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            padding: 8px 16px;
+            width: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-custom:hover {
+            background-color: #e74c3c;
+        }
+
+        .mt-4 {
+            margin-top: 10px;
+        }
+
+        .text-info {
+            font-weight: bold;
+            color: #613a97;
+            font-size: 25px;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav">Text-Based Emotion Analysis: Approaches and Evaluations</div>
+    <div class="heading">Explore EmotionAI – Understand Emotions Through Text!</div>
+    <div class="description">
+        Emotions are vital in communication. Detecting emotions in text enhances applications like customer service, 
+        mental health analysis, and social media monitoring. This system employs a hybrid model (CNN, BiGRU, SVM) 
+        for accurate emotion classification. It processes text, extracts key features, and predicts emotions like 
+        joy, fear, anger, sadness, disgust, shame, and guilt.
+    </div>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="textInput" class="text">Enter your text:</label>
+            <div id="textInput" class="input-text" contenteditable="true" placeholder="Type your text here..."></div>
+            <div id="errorMessage" class="error-message"></div>
+        </div><br>
+        <button class="btn-custom" onclick="predictEmotion()">Predict Emotion</button>
+        <div class="mt-4">
+            <h3>Predicted Emotion: <span id="emotionResult" class="text-info"></span></h3>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        function predictEmotion() {
+            var text = $("#textInput").text().trim();
+
+            // Clear previous results
+            $("#emotionResult").text("");
+            $("#errorMessage").text(""); 
+
+            // Validate input: no empty input, numbers, or special characters
+            if (text === "") {
+                $("#errorMessage").text("Please enter some text.");
+                return;
+            }
+            if (!/^[A-Za-z\s]+$/.test(text)) {
+                $("#errorMessage").text("Enter input in the form of text");
+                return;
+            }
+
+            $.ajax({
+                url: '/predict',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ text: text }),
+                success: function (response) {
+                    $("#emotionResult").text(response.emotion);
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("#errorMessage").text("An error occurred while predicting the emotion.");
+                }
+            });
+        }
+    </script>
+</body>
+
+
+</html>

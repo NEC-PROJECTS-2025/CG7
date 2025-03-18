@@ -1,0 +1,60 @@
+body {
+    background-color: #f8f9fa; /* Light background */
+    color: #343a40; /* Dark text color */
+    font-family: Arial, sans-serif; /* Font family for the page */
+    padding: 20px; /* Padding for the body */
+}
+
+h1 {
+    color: #007bff; /* Primary color for header */
+    text-align: center; /* Centering header */
+    margin-bottom: 20px; /* Space below header */
+}
+
+.highlight {
+    font-weight: bold;
+    font-size: 12px;
+    color: #28a745; /* Green color for highlighted text */
+}
+
+.input-text {
+    border: 2px solid #007bff; /* Primary border color */
+    padding: 10px;
+    min-height: 100px; 
+    overflow-y: auto; 
+    font-size: 18px;
+    font-weight: bold; /* Default text in bold */
+    border-radius: 5px; /* Rounded corners */
+    margin-bottom: 20px; /* Space below input */
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.input-text:focus {
+    border-color: #0056b3; /* Darker border on focus */
+    outline: none; /* Remove default outline */
+}
+
+.btn-custom {
+    background-color: #ff5733; /* Orange color */
+    border: none; /* Remove default border */
+    color: white; /* Text color for button */
+    font-size: 16px; /* Font size of the button */
+    padding: 8px 16px; /* Adjust padding for smaller size */
+    width: auto; /* Adjust width to content */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.btn-custom:hover {
+    background-color: #c7441a; /* Darker shade on hover */
+}
+
+.mt-4 {
+    margin-top: 30px; /* More space between elements */
+}
+
+.text-info {
+    font-weight: bold;
+    color: #007bff; /* Primary color for the result text */
+}
